@@ -1,4 +1,27 @@
 * {
   box-sizing: border-box;
   background-color: pink;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  font-size: 50px;
+  text-align: center;
+  margin-bottom: 50px;
+  border: solid black 2px;
+}
+
+main {
+  height: 700px;
+  border: solid black 2px;
+}
+
+#instructions {
+  margin-bottom: 50px;
+  border: solid black 2px;
+}
+
+nav {
+  
 }
