@@ -2,16 +2,22 @@
 
 //====================================================================
 
+//is it alive?
 areUOk = () => {
-  if (dino.hunger === 10 || dino.boredom === 10) {
-    console.log(`if statement is workin`);
+  if (dino.hunger === 10 || dino.boredom === 10 || dino.sleepiness === 10) {
+    // console.log(`if statement is workin`);
     clearInterval(countHunger);
     clearInterval(countBoredom);
+    clearInterval(countSleepiness);
+    clearInterval(countAge);
   }
 };
 
-//-------------
-//PET:
+//====================================================================
+
+//====================================================================
+//----------------------------->PET<----------------------------------
+
 class Pet {
   constructor(name) {
     this.name = name;
@@ -19,7 +25,9 @@ class Pet {
     this.sleepiness = 1;
     this.boredom = 1;
     this.age = -1;
-  }
+  } // End of constructor
+  //-------------
+
   ageUp = () => {
     areUOk();
     if (this.age === 0) {
@@ -28,6 +36,7 @@ class Pet {
     this.age = this.age + 1;
     console.log(`${this.name} just turned ${this.age}`);
   }; //end of function
+  //-------------
 
   //Pet Needs
 
@@ -44,6 +53,8 @@ class Pet {
       console.log(`Death by hunger`);
       clearInterval(countHunger);
       clearInterval(countBoredom);
+      clearInterval(countSleepiness);
+      clearInterval(countAge);
     }
   }; //end of function
   //----------------
@@ -59,7 +70,29 @@ class Pet {
     }
     if (this.boredom === 10) {
       console.log(`Death by boredom!`);
+      clearInterval(countHunger);
       clearInterval(countBoredom);
+      clearInterval(countSleepiness);
+      clearInterval(countAge);
+    }
+  }; //end of function
+  //----------------
+
+  imSleepy = () => {
+    areUOk();
+
+    this.sleepiness += 1;
+    console.log(`SLEEPINESS: ${this.sleepiness}`);
+
+    if (this.sleepiness >= 5 && this.sleepiness < 10) {
+      console.log(`YAWN! I'm sleepy, turn the light off`);
+    }
+    if (this.sleepiness === 10) {
+      console.log(`Death by sleepiness`);
+      clearInterval(countHunger);
+      clearInterval(countBoredom);
+      clearInterval(countSleepiness);
+      clearInterval(countAge);
     }
   };
 } //end of class
@@ -73,7 +106,7 @@ class Pet {
 
 feedPet = () => {
   if (dino.hunger < 10) {
-    dino.hunger = dino.hunger - 2;
+    dino.hunger -= 2;
     console.log(`nibble nibble`);
     console.log(`HUNGER: ${dino.hunger}`);
     console.log(`burp`);
@@ -84,7 +117,7 @@ feedPet = () => {
 //----------------
 playWithPet = () => {
   if (dino.boredom < 10) {
-    dino.boredom = dino.boredom - 2;
+    dino.boredom -= 2;
     console.log(`giggles`);
     console.log(`BOREDOM: ${dino.boredom}`);
   } else {
@@ -93,7 +126,13 @@ playWithPet = () => {
 };
 //----------------
 lightSwitch = () => {
-  console.log("time to sleep");
+  if (dino.sleepiness < 10) {
+    dino.sleepiness -= 2;
+    console.log(`Good night, zzzzzzzz`);
+    console.log(`SLEEPINESS: ${dino.sleepiness}`);
+  } else {
+    console.log(`it's too late to apologize`);
+  }
 };
 
 //INSTANTIATE pet:
@@ -115,14 +154,25 @@ console.log(dino);
 //then it requires to play <-- every 4 minutes
 //and then it requires to sleep <-- every 4 minutes
 //it ages <--- every 5 minutes
+
 //====================================================================
 
 //====================================================================
-//------------------------>FEED ME/FEED IT<---------------------------
+
+//----------------------------->AGE UP<-------------------------------
+
+//make it age:
+
+const countAge = setInterval(dino.ageUp, 15000);
+
+//====================================================================
+
+//====================================================================
+//------------------------>FEED ME/FEED PET<--------------------------
 
 //We can Set a timer that starts INCREASING THE HUNGER line
 
-const countHunger = setInterval(dino.feedMe, 2000); //this will ask to feed it every X seconds
+const countHunger = setInterval(dino.feedMe, 5000); //this will ask to feed it every X seconds
 //make it stop counting after 10 --> clearSetInterval
 
 //Q: How do I feed it?
@@ -139,7 +189,7 @@ const countHunger = setInterval(dino.feedMe, 2000); //this will ask to feed it e
 //first create the function playWithMe()
 //Set Timers that starts increasing Boredom:
 
-const countBoredom = setInterval(dino.playWithMe, 6000);
+const countBoredom = setInterval(dino.playWithMe, 10000);
 
 //Q: avoid death by boredom/Play with it:
 //A: playWithPet()
@@ -152,11 +202,29 @@ const countBoredom = setInterval(dino.playWithMe, 6000);
 //PROBLEM: After creating areUOk(): the pet dies of hunger before boredom, but the console was still printing the last BOREDOM value it had at the moment of dying, so I edited the feedMe() function by adding this ---->
 // clearInterval(countHunger);
 // clearInterval(countBoredom);
-//so that when it hits death by hunger, it clears all intervals and not just the countHunger one :)
+//so that when it hits death by hunger, it clears all intervals and not just the countHunger one. (It worked!)
 
 //====================================================================
 
 //====================================================================
+//------------------>I'M SLEEPY/TURN THE LIGHT OFF<-------------------
+
+//create function imSleepy()
+//Set Timers that starts increasing Sleepiness:
+
+const countSleepiness = setInterval(dino.imSleepy, 12000);
+
+//create function lightSwitch() to put it to sleep
+
+//====================================================================
+
+//====================================================================
+
+//PROBLEM: Pol's hunger, boredom and sleepiness get triggered before he is born (since we start him at age -1 in order for it to hatch!), we want the other 3 counters to start after Pol turns 0 (aka, after its been hatched).
+//BRAINSTORM: I can capsule the 3 functions insie ageUp() and put an if statement so that they happens after Pol turns 0.
+
+//I think it makes more sense to put the intervals inside of a function, lets try it:
 
 // feedPet();
 // playWithPet();
+// lightSwitch();
