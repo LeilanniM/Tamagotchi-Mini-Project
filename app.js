@@ -1,6 +1,16 @@
 //------------------------->TAMAGOTCHI<-----------------------------
 
 //====================================================================
+
+areUOk = () => {
+  if (dino.hunger === 10 || dino.boredom === 10) {
+    console.log(`if statement is workin`);
+    clearInterval(countHunger);
+    clearInterval(countBoredom);
+  }
+};
+
+//-------------
 //PET:
 class Pet {
   constructor(name) {
@@ -11,6 +21,7 @@ class Pet {
     this.age = -1;
   }
   ageUp = () => {
+    areUOk();
     if (this.age === 0) {
       console.log(`It hatched!`);
     }
@@ -21,6 +32,8 @@ class Pet {
   //Pet Needs
 
   feedMe = () => {
+    areUOk();
+
     this.hunger += 1;
     console.log(`HUNGER: ${this.hunger}`);
 
@@ -28,10 +41,27 @@ class Pet {
       console.log(`Feed Me`);
     }
     if (this.hunger === 10) {
-      console.log(`Im dead girl`);
+      console.log(`Death by hunger`);
       clearInterval(countHunger);
+      clearInterval(countBoredom);
     }
   }; //end of function
+  //----------------
+
+  playWithMe = () => {
+    areUOk();
+
+    this.boredom += 1;
+    console.log(`BOREDOM: ${this.boredom}`);
+
+    if (this.boredom >= 5 && this.boredom < 10) {
+      console.log(`Play with me, play with me, PLAY WITH ME!!!!`);
+    }
+    if (this.boredom === 10) {
+      console.log(`Death by boredom!`);
+      clearInterval(countBoredom);
+    }
+  };
 } //end of class
 
 //====================================================================
@@ -51,11 +81,19 @@ feedPet = () => {
     console.log(`it's too late to apologize`);
   }
 };
+//----------------
+playWithPet = () => {
+  if (dino.boredom < 10) {
+    dino.boredom = dino.boredom - 2;
+    console.log(`giggles`);
+    console.log(`BOREDOM: ${dino.boredom}`);
+  } else {
+    console.log(`it's too late to apologize`);
+  }
+};
+//----------------
 lightSwitch = () => {
   console.log("time to sleep");
-};
-playWithPet = () => {
-  console.log("Play time!");
 };
 
 //INSTANTIATE pet:
@@ -84,7 +122,7 @@ console.log(dino);
 
 //We can Set a timer that starts INCREASING THE HUNGER line
 
-const countHunger = setInterval(dino.feedMe, 3000); //this will ask to feed it every X seconds
+const countHunger = setInterval(dino.feedMe, 2000); //this will ask to feed it every X seconds
 //make it stop counting after 10 --> clearSetInterval
 
 //Q: How do I feed it?
@@ -96,3 +134,29 @@ const countHunger = setInterval(dino.feedMe, 3000); //this will ask to feed it e
 //====================================================================
 
 //====================================================================
+//-------------------->PLAY WITH ME/PLAY WITH PET<--------------------
+
+//first create the function playWithMe()
+//Set Timers that starts increasing Boredom:
+
+const countBoredom = setInterval(dino.playWithMe, 6000);
+
+//Q: avoid death by boredom/Play with it:
+//A: playWithPet()
+
+//PROBLEM: After it dies of hunger, boredom keeps counting.
+//Q: How do I make it so that once the pet dies, everything else stops.
+//Brain Storm: create a function that checks if it is alive!
+//A: areYouOk()
+
+//PROBLEM: After creating areUOk(): the pet dies of hunger before boredom, but the console was still printing the last BOREDOM value it had at the moment of dying, so I edited the feedMe() function by adding this ---->
+// clearInterval(countHunger);
+// clearInterval(countBoredom);
+//so that when it hits death by hunger, it clears all intervals and not just the countHunger one :)
+
+//====================================================================
+
+//====================================================================
+
+// feedPet();
+// playWithPet();
