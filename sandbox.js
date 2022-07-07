@@ -1,6 +1,7 @@
 //=========================TAMAGOTCHI============================
 // let ageCount;
 // let hungerCount;
+// let boredomCount;
 
 class Pet {
   constructor(name) {
@@ -23,6 +24,8 @@ class Pet {
 
     state.ageCount = setInterval(this.ageUp, 5000); //Updating STATE property and giving it a value of a callback function.
     state.hungerCount = setInterval(this.getsHungry, 2000); // ^^^
+
+    state.boredomCount = setInterval(this.getsBored, 3000);
   }; //-------------hatch() FUNCTION ENDS
   //============================
 
@@ -59,6 +62,29 @@ class Pet {
   }; //-------------- getsHungry() FUNCTION ENDS
 
   //============================
+
+  getsBored = () => {
+    this.boredom += 1; //increasing BOREDOM in increameants of 1 everytime the function gets called
+    state.boredom = this.boredom; //updating STATE property: state.boredom from its current value to this.boredom 's current value
+
+    console.log(`BOREDOM: ${this.boredom}`); //letting us know the new value of this.boredom
+
+    //????????????????????????????????????????????????????????????????????????????????????????
+
+    if (this.boredom === 10) {
+      //when this.boredom reaches 10, enter the bracket
+      console.log(`Death by boredom ⚰️`); //letting us know our pet died of boredom
+
+      this.isDead = true; //updating this.isDead 's value from FALSE to TRUE
+
+      clearInterval(state.boredomCount);
+    } else if (this.boredom >= 5) {
+      console.log(`play with me, PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!`);
+    }
+  }; //------------getsBored() FUNCTION ENDS
+  //????????????????????????????????????????????????????????????????????????????????????????
+
+  //============================
 } //end of class
 
 //===========================INSTANTIATE=================================
@@ -83,6 +109,7 @@ const state = {
   //------------------ Below: to be able to access these variables from anywhere.
   hungerCount: null, //so that I can access these from any point in my coding.
   ageCount: null, //^^^^^
+  boredomCount: null, //^^^
 };
 // console.log(state);
 
