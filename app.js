@@ -19,7 +19,7 @@ class Pet {
   hatch = () => {
     state.age = this.age;
 
-    console.log(`I've hatched!`);
+    console.log(`${this.name} has hatched!`);
     state.hatched = true;
     state.ageCount = setInterval(this.ageUp, 5000);
     state.hungerCount = setInterval(this.getsHungry, 4000);
@@ -112,7 +112,9 @@ class Pet {
 let dino;
 
 const startGame = () => {
-  dino = new Pet("Pol");
+  let petName = prompt("Give yoru pet a proper name", "type name");
+
+  dino = new Pet(petName);
   console.log(`${dino.name} has been instantiated`);
   setTimeout(dino.hatch, 5000);
 };
@@ -139,9 +141,11 @@ const state = {
 const startButton = document.querySelector("#start-pause"); //grabbing the button from HTML
 startButton.addEventListener("click", startGame); //so that everytime it is clicked, it runs the function startGame()
 
+//====================================================================
 //========================PET OWNER'S DUTIES==========================
+//====================================================================
 
-//==================
+//==================FEED BUTTON==============================
 
 function feedPet() {
   if (dino.hunger < 10 && dino.hunger >= 2) {
@@ -156,7 +160,11 @@ function feedPet() {
     console.log(`HUNGER: ${dino.hunger}`);
   }
 }
-//====================
+
+const feedButton = document.querySelector("#feed");
+feedButton.addEventListener("click", feedPet);
+
+//====================PLAY WITH PET BUTTON=================
 
 function playWithPet() {
   if (dino.boredom < 10 && dino.boredom >= 2) {
@@ -173,7 +181,10 @@ function playWithPet() {
   }
 }
 
-//======================
+const playWithPetButton = document.querySelector("#playWithPet");
+playWithPetButton.addEventListener("click", playWithPet);
+
+//======================LIGHT SWITCH BUTTON=====================
 
 function lightSwitch() {
   if (dino.sleepiness < 10 && dino.sleepiness >= 2) {
@@ -190,4 +201,21 @@ function lightSwitch() {
   }
 }
 
-//===========================GRAB BUTTONS=================================
+const lightSwitchButton = document.querySelector("#lightSwitch");
+lightSwitchButton.addEventListener("click", lightSwitch);
+
+//===========================RESTART BUTTON=================================
+
+function reloadPage() {
+  window.location.reload();
+}
+
+const restartButton = document.querySelector("#restart");
+restartButton.addEventListener("click", reloadPage);
+
+//===============================================================
+
+//NEXT STEPS:
+//1.-make stats appear on the screen 
+//2.-make light switch functional   
+//3.-make it so that it accepts a name from user DONE
