@@ -110,11 +110,16 @@ class Pet {
 
 //===========================INSTANTIATE=================================
 let dino;
+let petName;
+const petNameStat = document.querySelector("#petName");
 
 const startGame = () => {
-  let petName = prompt("Give yoru pet a proper name", "type name");
+  petName = prompt("Give yoru pet a proper name", "type name");
 
   dino = new Pet(petName);
+
+  petNameStat.innerHTML = dino.name;
+
   console.log(`${dino.name} has been instantiated`);
   setTimeout(dino.hatch, 5000);
 };
@@ -128,6 +133,7 @@ const state = {
   boredom: null,
   age: null,
   hatched: false,
+  name: null,
   //------------------ Below: to be able to access these variables from anywhere.
   hungerCount: null,
   ageCount: null,
@@ -213,9 +219,10 @@ function reloadPage() {
 const restartButton = document.querySelector("#restart");
 restartButton.addEventListener("click", reloadPage);
 
-//===============================================================
+//================================GAME STATS ON SCREEN====================================
+
+//========================================================================================
 
 //NEXT STEPS:
-//1.-make stats appear on the screen 
-//2.-make light switch functional   
-//3.-make it so that it accepts a name from user DONE
+//1.-make stats appear on the screen
+//2.-make light switch functional
