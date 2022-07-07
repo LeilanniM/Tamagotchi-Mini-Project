@@ -22,10 +22,10 @@ class Pet {
     console.log(`I've hatched!`);
     state.hatched = true;
     state.ageCount = setInterval(this.ageUp, 5000);
-    state.hungerCount = setInterval(this.getsHungry, 10000);
+    state.hungerCount = setInterval(this.getsHungry, 4000);
 
-    // state.boredomCount = setInterval(this.getsBored, 30000);
-    // state.sleepinessCount = setInterval(this.getsSleepy, 2000);
+    state.boredomCount = setInterval(this.getsBored, 3000);
+    state.sleepinessCount = setInterval(this.getsSleepy, 2000);
   }; //-------------hatch() FUNCTION ENDS
   //============================
 
@@ -50,8 +50,8 @@ class Pet {
 
       clearInterval(state.ageCount);
       clearInterval(state.hungerCount);
-      //   clearInterval(state.boredomCount);
-      //   clearInterval(state.sleepinessCount);
+      clearInterval(state.boredomCount);
+      clearInterval(state.sleepinessCount);
 
       console.log(state);
     } else if (this.hunger >= 5) {
@@ -61,50 +61,50 @@ class Pet {
 
   //============================
 
-  //   getsBored = () => {
-  //     this.boredom += 1;
-  //     state.boredom = this.boredom;
+  getsBored = () => {
+    this.boredom += 1;
+    state.boredom = this.boredom;
 
-  //     console.log(`BOREDOM: ${this.boredom}`);
+    console.log(`BOREDOM: ${this.boredom}`);
 
-  //     if (this.boredom === 10) {
-  //       console.log(`Death by boredom ⚰️`);
+    if (this.boredom === 10) {
+      console.log(`Death by boredom ⚰️`);
 
-  //       this.isDead = true;
+      this.isDead = true;
 
-  //       clearInterval(state.ageCount);
-  //       clearInterval(state.hungerCount);
-  //       clearInterval(state.boredomCount);
-  //       clearInterval(state.sleepinessCount);
+      clearInterval(state.ageCount);
+      clearInterval(state.hungerCount);
+      clearInterval(state.boredomCount);
+      clearInterval(state.sleepinessCount);
 
-  //       console.log(state);
-  //     } else if (this.boredom >= 5) {
-  //       console.log(`play with me, PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!`);
-  //     }
-  //   }; //------------getsBored() FUNCTION ENDS
+      console.log(state);
+    } else if (this.boredom >= 5) {
+      console.log(`play with me, PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!`);
+    }
+  }; //------------getsBored() FUNCTION ENDS
   //============================
 
-  //   getsSleepy = () => {
-  //     this.sleepiness += 1;
-  //     state.sleepiness = this.sleepiness;
+  getsSleepy = () => {
+    this.sleepiness += 1;
+    state.sleepiness = this.sleepiness;
 
-  //     console.log(`SLEEPINESS: ${this.sleepiness}`);
+    console.log(`SLEEPINESS: ${this.sleepiness}`);
 
-  //     if (this.sleepiness === 10) {
-  //       console.log(`Death by sleepiness ⚰️`);
+    if (this.sleepiness === 10) {
+      console.log(`Death by sleepiness ⚰️`);
 
-  //       this.isDead = true;
+      this.isDead = true;
 
-  //       clearInterval(state.ageCount);
-  //       clearInterval(state.hungerCount);
-  //       clearInterval(state.boredomCount);
-  //       clearInterval(state.sleepinessCount);
+      clearInterval(state.ageCount);
+      clearInterval(state.hungerCount);
+      clearInterval(state.boredomCount);
+      clearInterval(state.sleepinessCount);
 
-  //       console.log(state);
-  //     } else if (this.sleepiness >= 5) {
-  //       console.log(`YAAAAWN! zzzzzZZZZ`);
-  //     }
-  //   }; //---------getsSleepy() FUNCTIONS ENDS
+      console.log(state);
+    } else if (this.sleepiness >= 5) {
+      console.log(`YAAAAWN! zzzzzZZZZ`);
+    }
+  }; //---------getsSleepy() FUNCTIONS ENDS
   //============================
 } //end of class
 
@@ -141,25 +141,53 @@ startButton.addEventListener("click", startGame); //so that everytime it is clic
 
 //========================PET OWNER'S DUTIES==========================
 
-const feedPet = () => {
-  dino.hunger -= 2;
+//==================
 
-  console.log(`CRONCH CRONCH YUM!`);
-  console.log(`HUNGER: ${dino.hunger}`);
-};
+function feedPet() {
+  if (dino.hunger < 10 && dino.hunger >= 2) {
+    dino.hunger -= 2;
 
-// function playWithPet() {
-//   dino.boredom -= 2;
-//   state.boredom = dino.boredom;
+    console.log(`CRONCH CRONCH YUM!`);
+    console.log(`HUNGER: ${dino.hunger}`);
+  } else if (dino.hunger === 1) {
+    dino.hunger -= 1;
 
-//   console.log(`[Giggles]`);
-//   console.log(state);
-// }
+    console.log(`CRONCH CRONCH YUM!`);
+    console.log(`HUNGER: ${dino.hunger}`);
+  }
+}
+//====================
 
-// function lightSwitch() {
-//   dino.sleepiness -= 5;
-//   state.sleepiness = dino.sleepiness;
+function playWithPet() {
+  if (dino.boredom < 10 && dino.boredom >= 2) {
+    dino.boredom -= 2;
+    state.boredom = dino.boredom;
 
-//   console.log(`[passes out]`);
-//   console.log(state);
-// }
+    console.log(`[Giggles]`);
+    console.log(`BOREDOM: ${dino.boredom}`);
+  } else if (dino.boredom === 1) {
+    dino.hunger -= 1;
+
+    console.log(`[Giggles]`);
+    console.log(`BOREDOM: ${dino.boredom}`);
+  }
+}
+
+//======================
+
+function lightSwitch() {
+  if (dino.sleepiness < 10 && dino.sleepiness >= 2) {
+    dino.sleepiness -= 2;
+    state.sleepiness = dino.sleepiness;
+
+    console.log(`[passes out]`);
+    console.log(`SLEEPINESS: ${dino.sleepiness}`);
+  } else if (dino.sleepiness === 1) {
+    dino.sleepiness -= 1;
+
+    console.log(`[passes out]`);
+    console.log(`SLEEPINESS: ${dino.sleepiness}`);
+  }
+}
+
+//===========================GRAB BUTTONS=================================
