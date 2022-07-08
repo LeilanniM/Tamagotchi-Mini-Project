@@ -283,7 +283,7 @@ function feedPet() {
 }
 
 const feedButton = document.querySelector("#feed");
-feedButton.addEventListener("click", feedPet);
+feedButton.addEventListener("click", feedPet); //calling the function when clicked
 
 //====================PLAY WITH PET BUTTON=================
 
@@ -328,7 +328,7 @@ function playWithPet() {
 }
 
 const playWithPetButton = document.querySelector("#playWithPet");
-playWithPetButton.addEventListener("click", playWithPet);
+playWithPetButton.addEventListener("click", playWithPet); //calling the function when clicked
 
 //======================LIGHT SWITCH BUTTON=====================
 
@@ -345,11 +345,12 @@ function lightSwitch() {
 
       setTimeout(() => {
         pet.classList.toggle("eggsleeping"); //turn SLEEPING OFF
-        pet.classList.toggle("chilling"); //turn CHILLING ON
+        pet.classList.toggle("chilling"); //turn CHILLING ON  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       }, 4000);
 
       console.log(`[passes out]`);
       console.log(`SLEEPINESS: ${dino.sleepiness}`);
+      //------------------
     } else if (dino.sleepiness === 1) {
       dino.sleepiness -= 1;
 
@@ -367,13 +368,14 @@ function lightSwitch() {
       console.log(`[passes out]`);
       console.log(`SLEEPINESS: ${dino.sleepiness}`);
     }
+    //----------------------
   } else {
     dinoSays.innerHTML = `It's too late to aplogize...`;
   }
 }
 
 const lightSwitchButton = document.querySelector("#lightSwitch");
-lightSwitchButton.addEventListener("click", lightSwitch);
+lightSwitchButton.addEventListener("click", lightSwitch); //calling the function when clicked
 
 //===========================RESTART BUTTON=================================
 
@@ -395,8 +397,6 @@ const toggleInstructions = () => {
   const instructions = document.querySelector("#instructions");
   instructions.classList.toggle("shrinkContainer");
 };
-
-//========================================================================================
 
 //NEXT STEPS:
 //STATS ARE NOT BEING UPDATED ON SCREEN

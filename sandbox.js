@@ -119,3 +119,25 @@ const startButton = document.querySelector("#start-pause"); //grabbing the butto
 startButton.addEventListener("click", startGame); //so that everytime it is clicked, it runs the function startGame()
 
 //===================================================================
+
+//NOTES
+
+//MISSING:
+
+//light switch actially turning lights off
+//making it evolve
+
+//IF THERE IS TIME:
+
+//-MAKE A PAUSE BUTTON
+//-Fix PLAYING gudetama so GIGGLES dont get out of the screen
+
+//-Fix CHILLING GUDETAMA'S mouth and back's transperency
+//-GIVE more postions to CHILLING MODE
+//-Give more postions to EATING
+//-Give more positions to PLAYING
+//-Give more postions to SLEEPING
+//-Add images to the STATS screen
+//-make it celebrate EACH birthday: maybe it pauses the game for a few seconds and the room gets decorated for his birthday
+//-make SPANISH option
+//-Add sound effects
