@@ -15,7 +15,7 @@ const isDead = document.querySelector("#isDead");
 const dinoSays = document.querySelector("#dinoSays");
 //----------------
 
-//---------
+//=====================================CLASS==============================
 
 class Pet {
   constructor(name) {
@@ -34,6 +34,13 @@ class Pet {
 
     itHatched.innerHTML = "🐣 Your Egg Hatched!!";
     console.log(`${this.name} has hatched!`);
+
+    const pet = document.querySelector("#pet");
+    pet.classList.toggle("egg");
+    setTimeout(() => {
+      pet.classList.toggle("egg");
+      pet.classList.toggle("chilling");
+    }, 4000);
 
     setTimeout(() => (itHatched.innerHTML = ""), 5000); //so "your egg hatched" message goes away when PET turns 1
 
@@ -133,8 +140,7 @@ class Pet {
       console.log(`YAAAAWN! YAAAAAAAAWWWWWWNNNN 🥱`);
     }
   }; //---------getsSleepy() FUNCTIONS ENDS
-  //============================
-} //end of class
+} //=====================END OF CLASS=================================
 
 //===========================INSTANTIATE=================================
 let dino;
@@ -155,7 +161,7 @@ const startGame = () => {
   sleepinessStat.innerHTML = state.sleepiness; //showing initial value on sleepiness stats
 
   console.log(`${dino.name} has been instantiated`);
-  setTimeout(dino.hatch, 5000);
+  dino.hatch();
 };
 
 //===============================STATE================================
@@ -253,7 +259,17 @@ function reloadPage() {
 const restartButton = document.querySelector("#restart");
 restartButton.addEventListener("click", reloadPage);
 
-//================================GAME STATS ON SCREEN====================================
+//================================TEMPORARY===================================
+
+//this function will hide the UL by adding a class to it that hides it, AND makes the parent DIV (container where it lives) short
+
+const toggleInstructions = () => {
+  const ul = document.querySelector("ul");
+  ul.classList.toggle("hideContent");
+
+  const instructions = document.querySelector("#instructions");
+  instructions.classList.toggle("shrinkContainer");
+};
 
 //========================================================================================
 
@@ -261,3 +277,5 @@ restartButton.addEventListener("click", reloadPage);
 //1.-I want our screen to tell us that it has been hatched
 //2.-screen to show when it dies
 //3.-make light switch functional
+
+//===========================

@@ -12,10 +12,14 @@
   <body>
     <header id="title">TAMAGOTCHI</header>
     <main id="center">
-      <div id="instructions">
+      <div
+        id="instructions"
+        class="shrinkContainer"
+        onclick="toggleInstructions()"
+      >
         <center>INSTRUCTIONS</center>
 
-        <ul>
+        <ul class="hideContent">
           <br />
           <li>* Press Start when you're ready.</li>
           <br />
@@ -36,6 +40,7 @@
           </li>
         </ul>
       </div>
+
       <div id="stats">
         <h3><span id="petName">UNNAMED</span> THE DINO SAYS:</h3>
         <br />
@@ -44,7 +49,7 @@
         <h4>BOREDOM: <span id="boredomStat"></span></h4>
         <h4>SLEEPINESS: <span id="sleepinessStat"></span></h4>
       </div>
-      <div>
+      <div id="hatchOrDead">
         <p id="itHatched"></p>
 
         <p id="isDead"></p>
