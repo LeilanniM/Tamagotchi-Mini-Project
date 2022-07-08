@@ -273,8 +273,8 @@ const toggleInstructions = () => {
 //========================================================================================
 
 //NEXT STEPS:
-//1.-I want our screen to tell us that it has been hatched
-//2.-screen to show when it dies
+//1.-CHAT BOX: once it dies, I only want the chat box to show the " I died of..." message, nothing else (currently not happening)
+//2.-Adjust the times so the game makes more sense
 //3.-make light switch functional
 
 //===========================
