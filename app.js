@@ -32,7 +32,7 @@ class Pet {
   hatch = () => {
     state.age = this.age;
 
-    itHatched.innerHTML = "🐣 Your Egg Hatched!!";
+    itHatched.innerHTML = "🐣 I've Hatched!!";
     console.log(`${this.name} has hatched!`);
 
     const pet = document.querySelector("#pet");
@@ -70,7 +70,7 @@ class Pet {
     console.log(`HUNGER: ${this.hunger}`);
 
     if (this.hunger === 10) {
-      isDead.innerHTML = "Death by HUNGER 💀";
+      isDead.innerHTML = "I died of hunger 💀";
       console.log(`Death by hunger 💀`);
 
       this.isDead = true;
@@ -82,7 +82,7 @@ class Pet {
 
       console.log(state);
     } else if (this.hunger >= 5) {
-      dinoSays.innerHTML = "feed me, FEED ME, FEEED MEEEE!!!!";
+      dinoSays.innerHTML = "FEED ME, FEEED MEEEE!!!!";
       console.log(`feed me, feed me, FEED MEEEEE!!!`);
     }
   }; //-------------- getsHungry() FUNCTION ENDS
@@ -97,7 +97,7 @@ class Pet {
     console.log(`BOREDOM: ${this.boredom}`);
 
     if (this.boredom === 10) {
-      isDead.innerHTML = "Death by BOREDOM 💀";
+      isDead.innerHTML = "I died of boredom 💀";
       console.log(`Death by boredom 💀`);
 
       this.isDead = true;
@@ -109,8 +109,7 @@ class Pet {
 
       console.log(state);
     } else if (this.boredom >= 5) {
-      dinoSays.innerHTML =
-        "play with me, PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!";
+      dinoSays.innerHTML = "PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!";
       console.log(`play with me, PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!`);
     }
   }; //------------getsBored() FUNCTION ENDS
@@ -124,7 +123,7 @@ class Pet {
     console.log(`SLEEPINESS: ${this.sleepiness}`);
 
     if (this.sleepiness === 10) {
-      isDead.innerHTML = "Death by SLEEPINESS 💀";
+      isDead.innerHTML = "I died of sleepiness 💀";
       console.log(`Death by sleepiness 💀`);
 
       this.isDead = true;
@@ -136,7 +135,7 @@ class Pet {
 
       console.log(state);
     } else if (this.sleepiness >= 5) {
-      dinoSays.innerHTML = "YAWN!! YAAAAAAAAWWWWWWNNNN!!! 🥱";
+      dinoSays.innerHTML = "YAAAAAAAAWWWWWWNNNN!!! 🥱";
       console.log(`YAAAAWN! YAAAAAAAAWWWWWWNNNN 🥱`);
     }
   }; //---------getsSleepy() FUNCTIONS ENDS
@@ -150,7 +149,7 @@ const petNameStat = document.querySelector("#petName");
 //----------------------
 
 const startGame = () => {
-  petName = prompt("Give yoru pet a proper name", "type name");
+  petName = prompt("Give your pet a proper name", "type name");
 
   dino = new Pet(petName.toUpperCase());
 

@@ -3,6 +3,7 @@
   /* background-color: rgb(235, 223, 223); */
   margin: 0;
   padding: 0;
+  /* font-family: "Roboto", sans-serif; */
 }
 
 body {
@@ -21,6 +22,8 @@ header {
   width: 600px;
   background-image: URL("images/hand-painted-watercolor-pastel-sky-background_23-2148902771.webp");
   background-size: cover;
+  font-family: "Roboto", sans-serif;
+  color: rgb(159, 153, 153);
 }
 
 main {
@@ -34,6 +37,7 @@ main {
   background-image: URL("images/bpcbgbeesroom.png");
   background-size: cover;
   position: relative;
+  /* color: rgb(76, 74, 74); */
 }
 
 #instructions {
@@ -44,11 +48,14 @@ main {
   padding: 10px;
   display: inline-block;
   vertical-align: top;
-  background: URL("images/hand-painted-watercolor-pastel-sky-background_23-2148902771.webp");
+  background: #83bec1;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  color: white;
 }
 
 #instructions:hover {
-  background: #70a2a4;
+  background: #628f91;
   color: white;
   cursor: pointer;
 }
@@ -74,7 +81,9 @@ li {
   display: inline-block;
   vertical-align: top;
   margin-left: 394px;
-  background-image: URL("images/hand-painted-watercolor-pastel-sky-background_23-2148902771.webp");
+  background: #83bec1;
+  font-family: "Roboto", sans-serif;
+  color: white;
 }
 
 #pet {
@@ -84,12 +93,22 @@ li {
   border: 2px solid black;
 }
 
+/* #hatchOrDead {
+  border: solid #cdb3b3 2px;
+  border-radius: 10px;
+  height: 40px;
+  width: 250px;
+  background: #80d9db;
+  position: absolute;
+  text-align: center;
+} */
+
 .egg {
   background-image: URL("images/ezgif.com-gif-maker.gif");
   height: 250px;
   width: 203px;
 
-  top: 280px;
+  top: 260px;
   left: 503px;
   background-size: contain;
   background-repeat: no-repeat;
@@ -106,6 +125,29 @@ li {
   background-repeat: no-repeat;
 }
 
+#bottom {
+  border: 2px solid #cdb3b3;
+  border-radius: 10px;
+  background: #80d9db;
+  height: 75px;
+  position: absolute;
+  width: 464px;
+  left: 519px;
+  top: 509px;
+  background: #83bec1;
+  color: white;
+  text-align: center;
+}
+
+/* #dinoSays {
+  border: 2px solid black;
+  background: #80d9db;
+  width: 299px;
+  height: 62px;
+  margin-top: 367px;
+  margin-left: 651px;
+} */
+
 #controler {
   text-align: center;
   padding: 10px;
@@ -113,10 +155,17 @@ li {
 
 button {
   cursor: pointer;
+  color: white;
 
   margin-top: 20px;
   border-radius: 6px;
   border: solid #cdb3b3 2px;
   padding: 10px;
-  background-image: URL("images/hand-painted-watercolor-pastel-sky-background_23-2148902771.webp");
+  background: #83bec1;
+}
+
+button:hover {
+  background: #628f91;
+  color: white;
+  cursor: pointer;
 }
