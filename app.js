@@ -16,6 +16,7 @@ const dinoSays = document.querySelector("#dinoSays");
 //----------------
 
 const pet = document.querySelector("#pet"); //grabbing the acutal PET(div)
+const overlay = document.querySelector("#overlay"); //grabbing overlay Div to use it in lightSwitch() function
 
 //=====================================CLASS==============================
 
@@ -342,10 +343,12 @@ function lightSwitch() {
 
       pet.classList.toggle("chilling"); //turn CHILLING OFF
       pet.classList.toggle("eggsleeping"); //turn SLEEPING ON
+      overlay.classList.toggle("hideContent");
 
       setTimeout(() => {
         pet.classList.toggle("eggsleeping"); //turn SLEEPING OFF
-        pet.classList.toggle("chilling"); //turn CHILLING ON  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        pet.classList.toggle("chilling"); //turn CHILLING ON
+        overlay.classList.toggle("hideContent");
       }, 4000);
 
       console.log(`[passes out]`);
@@ -359,10 +362,12 @@ function lightSwitch() {
 
       pet.classList.toggle("chilling"); //turn CHILLING OFF
       pet.classList.toggle("eggsleeping"); //turn SLEEPING ON
+      overlay.classList.toggle("hideContent");
 
       setTimeout(() => {
         pet.classList.toggle("eggsleeping"); //turn SLEEPING OFF
         pet.classList.toggle("chilling"); //turn CHILLING ON
+        overlay.classList.toggle("hideContent");
       }, 4000);
 
       console.log(`[passes out]`);
@@ -397,6 +402,10 @@ const toggleInstructions = () => {
   const instructions = document.querySelector("#instructions");
   instructions.classList.toggle("shrinkContainer");
 };
+
+//=====================================OVERLAY===========================================
+
+//=======================================================================================
 
 //NEXT STEPS:
 //STATS ARE NOT BEING UPDATED ON SCREEN

@@ -141,3 +141,5 @@ startButton.addEventListener("click", startGame); //so that everytime it is clic
 //-make it celebrate EACH birthday: maybe it pauses the game for a few seconds and the room gets decorated for his birthday
 //-make SPANISH option
 //-Add sound effects
+
+//-Disable buttons while EGG is doing something
