@@ -125,6 +125,10 @@ li {
   background-repeat: no-repeat;
 }
 
+h3 {
+  font-family: "Roboto", sans-serif;
+}
+
 #bottom {
   border: 2px solid #cdb3b3;
   border-radius: 10px;
@@ -137,6 +141,11 @@ li {
   background: #83bec1;
   color: white;
   text-align: center;
+  padding-top: 10px;
+}
+
+#dinoSays {
+  padding-top: 10px;
 }
 
 /* #dinoSays {

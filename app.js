@@ -15,6 +15,8 @@ const isDead = document.querySelector("#isDead");
 const dinoSays = document.querySelector("#dinoSays");
 //----------------
 
+const pet = document.querySelector("#pet"); //grabbing the acutal PET(div)
+
 //=====================================CLASS==============================
 
 class Pet {
@@ -27,30 +29,33 @@ class Pet {
     this.isDead = false;
   } // End of constructor
 
-  //============================
+  //===================
+
+  //DEBUGGING:
+  //when PET dies it is left with the class .chilling still on it
+  //When we revivie it, it has both classes on .chilling and .egg
 
   hatch = () => {
-    state.age = this.age;
+    state.age = this.age; //state.age goes from NULL to 0
 
     itHatched.innerHTML = "🐣 I've Hatched!!";
     console.log(`${this.name} has hatched!`);
 
-    const pet = document.querySelector("#pet");
-    pet.classList.toggle("egg");
+    pet.classList.toggle("egg"); //we bring the hatching egg GIF
     setTimeout(() => {
-      pet.classList.toggle("egg");
-      pet.classList.toggle("chilling");
+      //4 second later
+      pet.classList.toggle("egg"); //turn hatching egg GIF off
+      pet.classList.toggle("chilling"); //turn chilling egg GIF on
     }, 4000);
 
     setTimeout(() => (itHatched.innerHTML = ""), 5000); //so "your egg hatched" message goes away when PET turns 1
 
     state.hatched = true;
-    state.ageCount = setInterval(this.ageUp, 5000);
+    state.ageCount = setInterval(this.ageUp, 40000); //starts aging after 4 seconds of being hatched
 
-    state.hungerCount = setInterval(this.getsHungry, 4000);
-
-    state.boredomCount = setInterval(this.getsBored, 3000);
-    state.sleepinessCount = setInterval(this.getsSleepy, 2000);
+    state.hungerCount = setInterval(this.getsHungry, 10000); //hunger starts increasing
+    state.boredomCount = setInterval(this.getsBored, 2000); //boredom starts increasing
+    state.sleepinessCount = setInterval(this.getsSleepy, 35000); //sleepiness starts increasing
   }; //-------------hatch() FUNCTION ENDS
   //============================
 
@@ -58,6 +63,7 @@ class Pet {
     this.age += 1;
     state.age = this.age;
 
+    dinoSays.innerHTML = `🎂  I just turned ${this.age} !! `;
     console.log(`${this.name} just turned ${this.age}`);
   }; //--------ageUp() FUNCTION ENDS
   //============================
@@ -72,13 +78,18 @@ class Pet {
     if (this.hunger === 10) {
       isDead.innerHTML = "I died of hunger 💀";
       console.log(`Death by hunger 💀`);
+      dinoSays.innerHTML = ""; //so PET chat clears once is it dies, and all it does after is let us know it is dead.
 
       this.isDead = true;
+
+      pet.classList.toggle("chilling"); //clear images when dead
 
       clearInterval(state.ageCount);
       clearInterval(state.hungerCount);
       clearInterval(state.boredomCount);
       clearInterval(state.sleepinessCount);
+
+      startButton.innerHTML = `TRY AGAIN`;
 
       console.log(state);
     } else if (this.hunger >= 5) {
@@ -99,13 +110,18 @@ class Pet {
     if (this.boredom === 10) {
       isDead.innerHTML = "I died of boredom 💀";
       console.log(`Death by boredom 💀`);
+      dinoSays.innerHTML = ""; //so PET chat clears once is it dies, and all it does after is let us know it is dead.
 
       this.isDead = true;
+
+      pet.classList.toggle("chilling"); //clear images when dead
 
       clearInterval(state.ageCount);
       clearInterval(state.hungerCount);
       clearInterval(state.boredomCount);
       clearInterval(state.sleepinessCount);
+
+      startButton.innerHTML = `TRY AGAIN`;
 
       console.log(state);
     } else if (this.boredom >= 5) {
@@ -125,13 +141,18 @@ class Pet {
     if (this.sleepiness === 10) {
       isDead.innerHTML = "I died of sleepiness 💀";
       console.log(`Death by sleepiness 💀`);
+      dinoSays.innerHTML = ""; //so PET chat clears once is it dies, and all it does after is let us know it is dead.
 
       this.isDead = true;
+
+      pet.classList.toggle("chilling"); //clear images when dead
 
       clearInterval(state.ageCount);
       clearInterval(state.hungerCount);
       clearInterval(state.boredomCount);
       clearInterval(state.sleepinessCount);
+
+      startButton.innerHTML = `TRY AGAIN`;
 
       console.log(state);
     } else if (this.sleepiness >= 5) {
@@ -149,18 +170,45 @@ const petNameStat = document.querySelector("#petName");
 //----------------------
 
 const startGame = () => {
-  petName = prompt("Give your pet a proper name", "type name");
+  if (dino) {
+    dino.age = 0;
+    dino.hunger = 0;
+    (dino.boredom = 0), (dino.sleepiness = 0);
+    dino.isDead = false;
 
-  dino = new Pet(petName.toUpperCase());
+    state.age = null;
+    state.hunger = 1;
+    state.boredom = 1;
+    state.sleepiness = 1;
+    state.isDay = true;
+    state.hatched = false;
+    state.hungerCount = null;
+    state.ageCount = null;
+    state.boredomCount = null;
+    state.sleepinessCount = null;
 
-  petNameStat.innerHTML = dino.name;
+    hungerStat.innerHTML = state.hunger; //showing initial value on hunger stats
+    boredomStat.innerHTML = state.boredom; //showing initial value on boredom stats
+    sleepinessStat.innerHTML = state.sleepiness; //showing initial value on sleepiness stats
+    dinoSays.innerHTML = "";
+    itHatched.innerHTML = "";
+    isDead.innerHTML = "";
 
-  hungerStat.innerHTML = state.hunger; //showing initial value on hunger stats
-  boredomStat.innerHTML = state.boredom; //showing initial value on boredom stats
-  sleepinessStat.innerHTML = state.sleepiness; //showing initial value on sleepiness stats
+    dino.hatch();
+  } else {
+    petName = prompt("Give your pet a proper name", "type name");
 
-  console.log(`${dino.name} has been instantiated`);
-  dino.hatch();
+    dino = new Pet(petName.toUpperCase());
+
+    petNameStat.innerHTML = dino.name;
+
+    hungerStat.innerHTML = state.hunger; //showing initial value on hunger stats
+    boredomStat.innerHTML = state.boredom; //showing initial value on boredom stats
+    sleepinessStat.innerHTML = state.sleepiness; //showing initial value on sleepiness stats
+
+    console.log(`${dino.name} has been instantiated`);
+    dino.hatch();
+  }
 };
 
 //===============================STATE================================
@@ -189,20 +237,29 @@ startButton.addEventListener("click", startGame); //so that everytime it is clic
 //====================================================================
 //========================PET OWNER'S DUTIES==========================
 //====================================================================
-
 //==================FEED BUTTON==============================
 
 function feedPet() {
-  if (dino.hunger < 10 && dino.hunger >= 2) {
-    dino.hunger -= 2;
+  if (dino.isDead === false) {
+    if (dino.hunger < 10 && dino.hunger >= 2) {
+      dino.hunger -= 2;
 
-    console.log(`CRONCH CRONCH YUM!`);
-    console.log(`HUNGER: ${dino.hunger}`);
-  } else if (dino.hunger === 1) {
-    dino.hunger -= 1;
+      state.hunger = dino.hunger;
+      hungerStat.innerHTML = state.hunger;
 
-    console.log(`CRONCH CRONCH YUM!`);
-    console.log(`HUNGER: ${dino.hunger}`);
+      console.log(`CRONCH CRONCH YUM!`);
+      console.log(`HUNGER: ${dino.hunger}`);
+    } else if (dino.hunger === 1) {
+      dino.hunger -= 1;
+
+      state.hunger = dino.hunger;
+      hungerStat.innerHTML = state.hunger;
+
+      console.log(`CRONCH CRONCH YUM!`);
+      console.log(`HUNGER: ${dino.hunger}`);
+    }
+  } else {
+    dinoSays.innerHTML = `It's too late to apologize...`;
   }
 }
 
@@ -212,17 +269,26 @@ feedButton.addEventListener("click", feedPet);
 //====================PLAY WITH PET BUTTON=================
 
 function playWithPet() {
-  if (dino.boredom < 10 && dino.boredom >= 2) {
-    dino.boredom -= 2;
-    state.boredom = dino.boredom;
+  if (dino.isDead === false) {
+    if (dino.boredom < 10 && dino.boredom >= 2) {
+      dino.boredom -= 2;
 
-    console.log(`[Giggles]`);
-    console.log(`BOREDOM: ${dino.boredom}`);
-  } else if (dino.boredom === 1) {
-    dino.hunger -= 1;
+      state.boredom = dino.boredom;
+      boredomStat.innerHTML = state.boredom;
 
-    console.log(`[Giggles]`);
-    console.log(`BOREDOM: ${dino.boredom}`);
+      console.log(`[Giggles]`);
+      console.log(`BOREDOM: ${dino.boredom}`);
+    } else if (dino.boredom === 1) {
+      dino.hunger -= 1;
+
+      state.boredom = dino.boredom;
+      boredomStat.innerHTML = state.boredom;
+
+      console.log(`[Giggles]`);
+      console.log(`BOREDOM: ${dino.boredom}`);
+    }
+  } else {
+    dinoSays.innerHTML = `It's too late to apologize...`;
   }
 }
 
@@ -232,17 +298,26 @@ playWithPetButton.addEventListener("click", playWithPet);
 //======================LIGHT SWITCH BUTTON=====================
 
 function lightSwitch() {
-  if (dino.sleepiness < 10 && dino.sleepiness >= 2) {
-    dino.sleepiness -= 2;
-    state.sleepiness = dino.sleepiness;
+  if (dino.isDead === false) {
+    if (dino.sleepiness < 10 && dino.sleepiness >= 2) {
+      dino.sleepiness -= 2;
 
-    console.log(`[passes out]`);
-    console.log(`SLEEPINESS: ${dino.sleepiness}`);
-  } else if (dino.sleepiness === 1) {
-    dino.sleepiness -= 1;
+      state.sleepiness = dino.sleepiness;
+      sleepinessStat.innerHTML = state.sleepiness;
 
-    console.log(`[passes out]`);
-    console.log(`SLEEPINESS: ${dino.sleepiness}`);
+      console.log(`[passes out]`);
+      console.log(`SLEEPINESS: ${dino.sleepiness}`);
+    } else if (dino.sleepiness === 1) {
+      dino.sleepiness -= 1;
+
+      state.sleepiness = dino.sleepiness;
+      sleepinessStat.innerHTML = state.sleepiness;
+
+      console.log(`[passes out]`);
+      console.log(`SLEEPINESS: ${dino.sleepiness}`);
+    }
+  } else {
+    dinoSays.innerHTML = `It's too late to aplogize...`;
   }
 }
 
@@ -258,7 +333,7 @@ function reloadPage() {
 const restartButton = document.querySelector("#restart");
 restartButton.addEventListener("click", reloadPage);
 
-//================================TEMPORARY===================================
+//===========================HIDE INSTRUCTIONS================================
 
 //this function will hide the UL by adding a class to it that hides it, AND makes the parent DIV (container where it lives) short
 
@@ -273,6 +348,7 @@ const toggleInstructions = () => {
 //========================================================================================
 
 //NEXT STEPS:
+//STATS ARE NOT BEING UPDATED ON SCREEN
 //1.-CHAT BOX: once it dies, I only want the chat box to show the " I died of..." message, nothing else (currently not happening)
 //2.-Adjust the times so the game makes more sense
 //3.-make light switch functional
