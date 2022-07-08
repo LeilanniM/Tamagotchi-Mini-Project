@@ -1,28 +1,94 @@
 * {
   box-sizing: border-box;
-  background-color: pink;
+  /* background-color: rgb(235, 223, 223); */
   margin: 0;
   padding: 0;
+}
+
+body {
+  background-image: URL("images/360_F_460826162_oLyD0uxvlOm78NX0QXIpLxmhYdnzZcQe.jpeg");
 }
 
 header {
   font-size: 50px;
   text-align: center;
-  margin-bottom: 50px;
-  border: solid black 2px;
+  margin-top: 29px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 23px;
+  border: solid #cdb3b3 2px;
+  border-radius: 10px;
+  width: 600px;
+  background-image: URL("images/hand-painted-watercolor-pastel-sky-background_23-2148902771.webp");
+  background-size: cover;
 }
 
 main {
-  height: 700px;
-  border: solid black 2px;
+  height: 600px;
+  border: solid #cdb3b3 6px;
+  border-radius: 10px;
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  background-image: URL("images/bpcbgbeesroom.png");
+  background-size: cover;
+  position: relative;
 }
 
 #instructions {
   margin-bottom: 50px;
-  border: solid black 2px;
+  border: solid #cdb3b3 2px;
+  border-radius: 10px;
+  height: 350px;
+  width: 250px;
+  padding: 10px;
+  display: inline-block;
+  vertical-align: top;
+  background-image: URL("images/hand-painted-watercolor-pastel-sky-background_23-2148902771.webp");
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+li {
+  list-style: none;
+}
+
+#stats {
+  border: solid #cdb3b3 2px;
+  border-radius: 10px;
+  height: 122px;
+  width: 300px;
+  padding: 10px;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 394px;
+  background-image: URL("images/hand-painted-watercolor-pastel-sky-background_23-2148902771.webp");
+}
+
+#pet {
+  border: solid #cdb3b3 2px;
+  height: 250px;
+  width: 203px;
+  position: absolute;
+  background-image: URL("images/ezgif.com-gif-maker.gif");
+
+  top: 280px;
+  left: 503px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#controler {
+  text-align: center;
+  padding: 10px;
 }
 
 button {
-  margin-left: auto;
-  margin-right: auto;
+  margin-top: 20px;
+  border-radius: 6px;
+  padding: 10px;
+  background-image: URL("images/hand-painted-watercolor-pastel-sky-background_23-2148902771.webp");
 }

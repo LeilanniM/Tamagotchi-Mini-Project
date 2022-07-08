@@ -10,12 +10,35 @@
     <title>TAMAGOTCHI</title>
   </head>
   <body>
-    <header id="stats">TAMAGOTCHI</header>
+    <header id="title">TAMAGOTCHI</header>
     <main id="center">
-      <div id="instructions">INSTRUCTIONS</div>
-      <div id="pet"></div>
+      <div id="instructions">
+        <center>INSTRUCTIONS</center>
+
+        <ul>
+          <br />
+          <li>* Press Start when you're ready.</li>
+          <br />
+          <li>* Name your pet</li>
+          <br />
+          <li>
+            * Pat attention to your pet's needs, <br />
+            he'll either ask to be fed, to
+            <br />
+            be played with or YAWN when it's sleepy
+          </li>
+          <br />
+          <li>* Use buttons to attend your pet.</li>
+          <br />
+          <li>
+            * IMPORTANT: Do not let any of your <br />
+            pet Needs get to 10 or it will DIE!!!!!!!
+          </li>
+        </ul>
+      </div>
       <div id="stats">
         <h3><span id="petName">UNNAMED</span> THE DINO SAYS:</h3>
+        <br />
         <p id="dinoSays"></p>
         <h4>HUNGER: <span id="hungerStat"></span></h4>
         <h4>BOREDOM: <span id="boredomStat"></span></h4>
@@ -26,12 +49,13 @@
 
         <p id="isDead"></p>
       </div>
+      <div id="pet"></div>
     </main>
     <div id="controler">
       <button id="restart">RESTART</button>
       <button id="feed">FEED</button>
-      <button id="lightSwitch">LIGHT SWITCH</button>
       <button id="start-pause">START/PAUSE</button>
+      <button id="lightSwitch">LIGHT SWITCH</button>
       <button id="playWithPet">PLAY WITH PET</button>
       <!-- <button id="pooper-scooper">POOPER SCOOPER</button> -->
     </div>
