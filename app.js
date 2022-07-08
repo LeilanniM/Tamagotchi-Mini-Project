@@ -54,7 +54,7 @@ class Pet {
     state.ageCount = setInterval(this.ageUp, 40000); //starts aging after 4 seconds of being hatched
 
     state.hungerCount = setInterval(this.getsHungry, 10000); //hunger starts increasing
-    state.boredomCount = setInterval(this.getsBored, 2000); //boredom starts increasing
+    state.boredomCount = setInterval(this.getsBored, 20000); //boredom starts increasing
     state.sleepinessCount = setInterval(this.getsSleepy, 35000); //sleepiness starts increasing
   }; //-------------hatch() FUNCTION ENDS
   //============================
@@ -83,6 +83,7 @@ class Pet {
       this.isDead = true;
 
       pet.classList.toggle("chilling"); //clear images when dead
+      pet.classList.toggle("eggdied"); //switches to egg dying GIF
 
       clearInterval(state.ageCount);
       clearInterval(state.hungerCount);
@@ -115,6 +116,7 @@ class Pet {
       this.isDead = true;
 
       pet.classList.toggle("chilling"); //clear images when dead
+      pet.classList.toggle("eggdied"); //switches to egg dying GIF
 
       clearInterval(state.ageCount);
       clearInterval(state.hungerCount);
@@ -146,6 +148,7 @@ class Pet {
       this.isDead = true;
 
       pet.classList.toggle("chilling"); //clear images when dead
+      pet.classList.toggle("eggdied"); //switches to egg dying GIF
 
       clearInterval(state.ageCount);
       clearInterval(state.hungerCount);
@@ -247,6 +250,14 @@ function feedPet() {
       state.hunger = dino.hunger;
       hungerStat.innerHTML = state.hunger;
 
+      pet.classList.toggle("chilling"); //turn CHILLING OFF
+      pet.classList.toggle("eggeating"); //TURN EATING ON
+
+      setTimeout(() => {
+        pet.classList.toggle("eggeating"); //turn EATING OFF
+        pet.classList.toggle("chilling"); //turn CHILLING BACK ON
+      }, 4000);
+
       console.log(`CRONCH CRONCH YUM!`);
       console.log(`HUNGER: ${dino.hunger}`);
     } else if (dino.hunger === 1) {
@@ -254,6 +265,14 @@ function feedPet() {
 
       state.hunger = dino.hunger;
       hungerStat.innerHTML = state.hunger;
+
+      pet.classList.toggle("chilling"); //clear images when being fed
+      pet.classList.toggle("eggeating"); //shows him eating
+
+      setTimeout(() => {
+        pet.classList.toggle("eggeating"); //turn EATING OFF
+        pet.classList.toggle("chilling"); //turn CHILLING BACK ON
+      }, 4000);
 
       console.log(`CRONCH CRONCH YUM!`);
       console.log(`HUNGER: ${dino.hunger}`);
@@ -276,6 +295,14 @@ function playWithPet() {
       state.boredom = dino.boredom;
       boredomStat.innerHTML = state.boredom;
 
+      pet.classList.toggle("chilling"); //turn CHILLING OFF
+      pet.classList.toggle("eggplaying"); //turn PLAYING ON
+
+      setTimeout(() => {
+        pet.classList.toggle("eggplaying"); //turn PLAYING OFF
+        pet.classList.toggle("chilling"); //turn CHILLING ON
+      }, 4000);
+
       console.log(`[Giggles]`);
       console.log(`BOREDOM: ${dino.boredom}`);
     } else if (dino.boredom === 1) {
@@ -283,6 +310,14 @@ function playWithPet() {
 
       state.boredom = dino.boredom;
       boredomStat.innerHTML = state.boredom;
+
+      pet.classList.toggle("chilling"); //turn CHILLING OFF
+      pet.classList.toggle("eggplaying"); //turn PLAYING ON
+
+      setTimeout(() => {
+        pet.classList.toggle("eggplaying"); //turn PLAYING OFF
+        pet.classList.toggle("chilling"); //turn CHILLING ON
+      }, 4000);
 
       console.log(`[Giggles]`);
       console.log(`BOREDOM: ${dino.boredom}`);
@@ -305,6 +340,14 @@ function lightSwitch() {
       state.sleepiness = dino.sleepiness;
       sleepinessStat.innerHTML = state.sleepiness;
 
+      pet.classList.toggle("chilling"); //turn CHILLING OFF
+      pet.classList.toggle("eggsleeping"); //turn SLEEPING ON
+
+      setTimeout(() => {
+        pet.classList.toggle("eggsleeping"); //turn SLEEPING OFF
+        pet.classList.toggle("chilling"); //turn CHILLING ON
+      }, 4000);
+
       console.log(`[passes out]`);
       console.log(`SLEEPINESS: ${dino.sleepiness}`);
     } else if (dino.sleepiness === 1) {
@@ -312,6 +355,14 @@ function lightSwitch() {
 
       state.sleepiness = dino.sleepiness;
       sleepinessStat.innerHTML = state.sleepiness;
+
+      pet.classList.toggle("chilling"); //turn CHILLING OFF
+      pet.classList.toggle("eggsleeping"); //turn SLEEPING ON
+
+      setTimeout(() => {
+        pet.classList.toggle("eggsleeping"); //turn SLEEPING OFF
+        pet.classList.toggle("chilling"); //turn CHILLING ON
+      }, 4000);
 
       console.log(`[passes out]`);
       console.log(`SLEEPINESS: ${dino.sleepiness}`);
