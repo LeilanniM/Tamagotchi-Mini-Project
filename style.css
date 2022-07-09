@@ -156,6 +156,43 @@ li {
   background-repeat: no-repeat;
 }
 
+.eggevolves {
+  background-image: URL("images/clear-human.png");
+  height: 258px;
+  width: 252px;
+  top: 201px;
+  left: 376px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* animation*/
+  animation-duration: 3s; /* how long itll take the egg to cross the screen */
+  animation-name: evolves; /* itll refer to our keyframe names EVOLVES */
+  animation-iteration-count: infinite; /*this keeps our blocl/egg-mage looping (repeating the asigned movement*/
+  animation-direction: alternate; /* this makes it so it does what we told it too PLUS the same on its way back */
+}
+
+@keyframes evolves {
+  0% {
+    left: 367px;
+    transform: rotate(0deg);
+  }
+
+  100% {
+    left: 411px;
+    transform: rotate(1000deg);
+  }
+} /*end of animation*/
+
+.eggevolution {
+  background-image: URL("images/egghuman.gif");
+  top: 171px;
+  left: 358px;
+  height: 304px;
+  width: 492px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .eggdied {
   background-image: URL("images/ezgif.com-gif-maker\ \(2\).gif");
   height: 240px;
@@ -236,7 +273,7 @@ button:hover {
   cursor: pointer;
 }
 
-.testegg {
+.rolling {
   background-image: URL("images/rolling.gif");
   width: 129px;
   height: 136px;

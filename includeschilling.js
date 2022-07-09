@@ -83,44 +83,12 @@ class Pet {
   }; //-------------hatch() FUNCTION ENDS
   //============================
 
-  evolve = () => {
-    dinoSays.innerHTML = "";
-    disableButtons();
-    dinoSays.innerHTML = `I'm evolving`;
-
-    pet.removeAttribute("class"); //so it doesnt matter what EGG is doing, it will be removed once it dies
-    pet.classList.toggle("eggevolves");
-
-    setTimeout(() => {
-      pet.removeAttribute("class");
-      pet.classList.toggle("eggevolution");
-      dinoSays.innerHTML = `I'm a grown Egg now, it's time for me to see the world`;
-
-      document.getElementById("stats").style.height = "154px";
-
-      hungerStat.innerHTML = `Too old to be fed by you`;
-      boredomStat.innerHTML = `Lets grab a beer some time`;
-      sleepinessStat.innerHTML = `Sleeping? In this economy?`;
-    }, 4000);
-
-    clearInterval(state.ageCount); //stop ALL the counting (Intervals)
-    clearInterval(state.hungerCount);
-    clearInterval(state.boredomCount);
-    clearInterval(state.sleepinessCount);
-  };
-
-  //===========================
-
   ageUp = () => {
     this.age += 1;
 
     dinoSays.innerHTML = `🎂  I just turned ${this.age} !! `;
     console.log(`${this.name} just turned ${this.age}`);
-
-    if (this.age === 5) {
-      this.evolve();
-    }
-  }; //--------ageUp() METHOD ENDS
+  }; //--------ageUp() FUNCTION ENDS
   //============================
 
   getsHungry = () => {
@@ -151,14 +119,21 @@ class Pet {
     } else if (this.hunger >= 5) {
       dinoSays.innerHTML = "FEED ME, FEEED MEEEE!!!!";
       console.log(`FEED ME, FEED MEEEEE!!!`);
+
+      // if (this.hunger === 5 || this.boredom === 5 || this.sleepiness === 5) {
+      //   pet.classList.remove("rolling"); //when the level of hunger is 5 or more, TURN OFF rolling
+      //   pet.classList.add("chilling"); //and TURN ON chilling
+      // }
     }
   }; //-------------- getsHungry() FUNCTION ENDS
+
   //============================
 
   getsBored = () => {
     this.boredom += 1;
+    state.boredom = this.boredom; //🚫
 
-    boredomStat.innerHTML = this.boredom; //updating boredom stats in stats window
+    boredomStat.innerHTML = this.boredom; //updating boredom stats
     console.log(`BOREDOM: ${this.boredom}`);
 
     if (this.boredom === 10) {
@@ -168,10 +143,8 @@ class Pet {
 
       this.isDead = true;
 
-      pet.removeAttribute("class"); //so it doesnt matter what EGG is doing, it will be removed once it dies
-      pet.classList.toggle("eggdied"); //TURN ON EGG DYING
-
-      disableButtons(); //DISABLE FEED, PLAY with and put to SLEEP BUTTONS
+      pet.classList.toggle("rolling"); //clear images when dead
+      pet.classList.toggle("eggdied"); //switches to egg dying GIF
 
       clearInterval(state.ageCount);
       clearInterval(state.hungerCount);
@@ -179,15 +152,25 @@ class Pet {
       clearInterval(state.sleepinessCount);
 
       startButton.innerHTML = `TRY AGAIN`;
+
+      console.log(state);
     } else if (this.boredom >= 5) {
+      pet.classList.remove("rolling"); //when the level of boredom is 5 or more, TURN OFF rolling
+      pet.classList.add("chilling"); //and TURN ON chilling
+
       dinoSays.innerHTML = "PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!";
-      console.log(`PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!`);
+      console.log(`play with me, PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!`);
+    }
+    if (this.hunger === 5 || this.boredom === 5 || this.sleepiness === 5) {
+      pet.classList.remove("rolling"); //when the level of hunger is 5 or more, TURN OFF rolling
+      pet.classList.add("chilling"); //and TURN ON chilling
     }
   }; //------------getsBored() FUNCTION ENDS
   //============================
 
   getsSleepy = () => {
     this.sleepiness += 1;
+    state.sleepiness = this.sleepiness; //🚫
 
     sleepinessStat.innerHTML = this.sleepiness; //updating sleepiness stats
     console.log(`SLEEPINESS: ${this.sleepiness}`);
@@ -195,15 +178,12 @@ class Pet {
     if (this.sleepiness === 10) {
       deathMessage.innerHTML = "I died of sleepiness 💀";
       console.log(`Death by sleepiness 💀`);
-
       dinoSays.innerHTML = ""; //so PET chat clears once is it dies, and all it does after is let us know it is dead.
 
       this.isDead = true;
 
-      pet.removeAttribute("class"); //so it doesnt matter what EGG is doing, it will be removed once it dies
+      pet.classList.toggle("rolling"); //clear images when dead
       pet.classList.toggle("eggdied"); //switches to egg dying GIF
-
-      disableButtons(); //DISABLE FEED, PLAY with and put to SLEEP BUTTONS
 
       clearInterval(state.ageCount);
       clearInterval(state.hungerCount);
@@ -211,9 +191,18 @@ class Pet {
       clearInterval(state.sleepinessCount);
 
       startButton.innerHTML = `TRY AGAIN`;
+
+      console.log(state);
     } else if (this.sleepiness >= 5) {
+      pet.classList.remove("rolling"); //when the level of sleepiness is 5 or more, TURN OFF rolling
+      pet.classList.add("chilling"); //and TURN ON chilling
+
       dinoSays.innerHTML = "YAAAAAAAAWWWWWWNNNN!!! 🥱";
-      console.log(`YAAAAAAAAWWWWWWNNNN 🥱`);
+      console.log(`YAAAAWN! YAAAAAAAAWWWWWWNNNN 🥱`);
+    }
+    if (this.hunger === 5 || this.boredom === 5 || this.sleepiness === 5) {
+      pet.classList.remove("rolling"); //when the level of hunger is 5 or more, TURN OFF rolling
+      pet.classList.add("chilling"); //and TURN ON chilling
     }
   }; //---------getsSleepy() FUNCTIONS ENDS
 } //=====================END OF CLASS=================================
@@ -248,16 +237,18 @@ const startGame = () => {
 
     dino.hatch();
   } else {
-    petName = prompt("Give your pet a proper name", "type name"); //grabs users input
-    dino = new Pet(petName.toUpperCase()); //turns it into uppercase
-    petNameStat.innerHTML = dino.name; //updates the chat box with new name
+    petName = prompt("Give your pet a proper name", "type name");
+
+    dino = new Pet(petName.toUpperCase());
+
+    petNameStat.innerHTML = dino.name;
 
     hungerStat.innerHTML = dino.hunger; //showing initial value on hunger stats
     boredomStat.innerHTML = dino.boredom; //showing initial value on boredom stats
     sleepinessStat.innerHTML = dino.sleepiness; //showing initial value on sleepiness stats
 
     console.log(`${dino.name} has been instantiated`);
-    dino.hatch(); //hatch egg
+    dino.hatch();
   }
 };
 
@@ -272,74 +263,193 @@ startButton.addEventListener("click", startGame); //so that everytime it is clic
 //==================FEED BUTTON==============================
 
 function feedPet() {
-  if (dino.isDead === false && dino.hunger >= 2) {
+  if (dino.isDead === false) {
     disableButtons();
+    if (dino.hunger < 10 && dino.hunger >= 5) {
+      dino.hunger -= 2;
 
-    dino.hunger -= 2;
+      state.hunger = dino.hunger;
+      hungerStat.innerHTML = state.hunger;
 
-    hungerStat.innerHTML = dino.hunger;
+      pet.classList.remove("chilling"); //removing chilling temporary while it eats
+      pet.classList.add("eggeating"); //starts eating (ON)
 
-    pet.removeAttribute("class"); //removes all GIFs (classes)
-    pet.classList.add("eggeating"); //starts eating, turns EATING GIF (ON)
+      setTimeout(() => {
+        pet.classList.toggle("eggeating"); //turn EATING OFF after 4 secs
+        if (dino.hunger >= 5 || dino.boredom >= 5 || dino.sleepiness >= 5) {
+          enableButtons();
+          pet.classList.toggle("chilling"); //if after eating its hunger levels are still 5 or higher, it will remain chilling
+        } else {
+          enableButtons();
+          pet.classList.toggle("rolling"); //after its done eating, if its hunger levels are below 5 it will go back to rolling (rolling)
+        }
+      }, 4000);
 
-    setTimeout(() => {
-      pet.classList.toggle("eggeating"); //turn EATING OFF after 4 secs
-      pet.classList.toggle("rolling"); //after its done eating, if its hunger levels are below 5 it will go back to rolling (rolling)
-      enableButtons();
-    }, 4000);
+      console.log(`CRONCH CRONCH YUM`);
+      console.log(`HUNGER: ${dino.hunger}`);
+    } else if (dino.hunger < 5 && dino.hunger >= 2) {
+      dino.hunger -= 2;
 
-    console.log(`CRONCH CRONCH YUM`);
-    console.log(`HUNGER: ${dino.hunger}`);
+      state.hunger = dino.hunger;
+      hungerStat.innerHTML = state.hunger;
+
+      pet.classList.toggle("rolling"); //turn rolling OFF
+      pet.classList.toggle("eggeating"); //TURN EATING ON
+
+      setTimeout(() => {
+        pet.classList.toggle("eggeating"); //turn EATING OFF
+        pet.classList.toggle("rolling"); //turn rolling BACK ON
+      }, 4000);
+
+      console.log(`CRONCH CRONCH YUM!`);
+      console.log(`HUNGER: ${dino.hunger}`);
+    } else if (dino.hunger === 1) {
+      dino.hunger -= 1;
+
+      state.hunger = dino.hunger;
+      hungerStat.innerHTML = state.hunger;
+
+      pet.classList.toggle("rolling"); //clear images when being fed
+      pet.classList.toggle("eggeating"); //shows him eating
+
+      setTimeout(() => {
+        pet.classList.toggle("eggeating"); //turn EATING OFF
+        pet.classList.toggle("rolling"); //turn rolling BACK ON
+      }, 4000);
+
+      console.log(`CRONCH CRONCH YUM!`);
+      console.log(`HUNGER: ${dino.hunger}`);
+    }
+  } else {
+    dinoSays.innerHTML = `It's too late to apologize...`;
   }
 }
 
 //====================PLAY WITH PET BUTTON=================
 
 function playWithPet() {
-  if (dino.isDead === false && dino.boredom >= 2) {
-    disableButtons();
+  if (dino.isDead === false) {
+    if (dino.boredom < 10 && dino.boredom >= 2) {
+      dino.boredom -= 2;
 
-    dino.boredom -= 2;
+      state.boredom = dino.boredom;
+      boredomStat.innerHTML = state.boredom;
 
-    boredomStat.innerHTML = dino.boredom;
+      pet.classList.toggle("rolling"); //turn rolling OFF
+      pet.classList.toggle("eggplaying"); //turn PLAYING ON
 
-    pet.removeAttribute("class"); //removes all GIFs (classes)
-    pet.classList.toggle("eggplaying"); //turn PLAYING ON
+      setTimeout(() => {
+        pet.classList.toggle("eggplaying"); //turn PLAYING OFF
+        if (dino.boredom >= 5 || dino.hunger >= 5 || dino.sleepiness >= 5) {
+          pet.classList.toggle("chilling");
+        } else {
+          pet.classList.toggle("rolling");
+        }
+      }, 4000);
 
-    setTimeout(() => {
-      pet.classList.toggle("eggplaying"); //turn PLAYING OFF
+      console.log(`[Giggles]`);
+      console.log(`BOREDOM: ${dino.boredom}`);
+    } else if (dino.boredom < 5 && dino.boredom >= 2) {
+      dino.boredom -= 2;
+
+      state.boredom = dino.boredom;
+      boredomStat.innerHTML = state.boredom;
+
       pet.classList.toggle("rolling");
-      enableButtons();
-    }, 4000);
+      pet.classList.toggle("eggplaying");
 
-    console.log(`[Giggles]`);
-    console.log(`BOREDOM: ${dino.boredom}`);
+      setTimeout(() => {
+        pet.classList.toggle("eggplaying");
+        pet.classList.toggle("rolling");
+      }, 4000);
+
+      console.log(`[giggles]`);
+      console.log(`BOREDOM ${dino.boredom}`);
+    } else if (dino.boredom === 1) {
+      dino.hunger -= 1;
+
+      state.boredom = dino.boredom;
+      boredomStat.innerHTML = state.boredom;
+
+      pet.classList.toggle("rolling"); //turn rolling OFF
+      pet.classList.toggle("eggplaying"); //turn PLAYING ON
+
+      setTimeout(() => {
+        pet.classList.toggle("eggplaying"); //turn PLAYING OFF
+        pet.classList.toggle("rolling"); //turn rolling ON
+      }, 4000);
+
+      console.log(`[Giggles]`);
+      console.log(`BOREDOM: ${dino.boredom}`);
+    }
+  } else {
+    dinoSays.innerHTML = `It's too late to apologize...`;
   }
 }
 
 //======================LIGHT SWITCH BUTTON=====================
 
 function lightSwitch() {
-  if (dino.isDead === false && dino.sleepiness >= 2) {
-    disableButtons();
+  if (dino.isDead === false) {
+    if (dino.sleepiness < 10 && dino.sleepiness >= 2) {
+      dino.sleepiness -= 2;
 
-    dino.sleepiness -= 2;
+      state.sleepiness = dino.sleepiness;
+      sleepinessStat.innerHTML = state.sleepiness;
 
-    sleepinessStat.innerHTML = dino.sleepiness;
-
-    pet.removeAttribute("class"); //removes all GIFs (classes)
-    pet.classList.toggle("eggsleeping"); //turn SLEEPING ON
-    overlay.classList.toggle("hideContent");
-
-    setTimeout(() => {
-      pet.classList.toggle("eggsleeping"); //turn SLEEPING OFF
+      pet.classList.toggle("rolling"); //turn rolling OFF
+      pet.classList.toggle("eggsleeping"); //turn SLEEPING ON
       overlay.classList.toggle("hideContent");
-      pet.classList.toggle("rolling"); //after its done sleeping, if its sleepiness levels are below 5 it will go back to rolling (rolling)
-      enableButtons();
-    }, 4000);
 
-    console.log(`[passes out]`);
-    console.log(`SLEEPINESS: ${dino.sleepiness}`);
+      setTimeout(() => {
+        pet.classList.toggle("eggsleeping"); //turn SLEEPING OFF
+        overlay.classList.toggle("hideContent");
+        if (dino.sleepiness >= 5 || dino.boredom >= 5 || dino.hunger >= 5) {
+          pet.classList.toggle("chilling"); //turn rolling ON
+        }
+      }, 4000);
+
+      console.log(`[passes out]`);
+      console.log(`SLEEPINESS: ${dino.sleepiness}`);
+      //------------------
+    } else if (dino.sleepiness < 5 && dino.sleepiness >= 2) {
+      dino.sleepiness -= 2;
+
+      state.sleepiness = dino.sleepiness;
+      sleepinessStat.innerHTML = state.sleepiness;
+
+      pet.classList.toggle("rolling"); //turn off
+      pet.classList.toggle("eggsleeping"); //ON
+
+      setTimeout(() => {
+        pet.classList.toggle("eggsleeping"); //OFF
+        pet.classList.toggle("rolling"); //ON
+      }, 4000);
+
+      console.log(`[passes out]`);
+      console.log(`SLEEPINESS ${dino.sleepiness}`);
+    } else if (dino.sleepiness === 1) {
+      dino.sleepiness -= 1;
+
+      state.sleepiness = dino.sleepiness;
+      sleepinessStat.innerHTML = state.sleepiness;
+
+      pet.classList.toggle("rolling"); //turn rolling OFF
+      pet.classList.toggle("eggsleeping"); //turn SLEEPING ON
+      overlay.classList.toggle("hideContent");
+
+      setTimeout(() => {
+        pet.classList.toggle("eggsleeping"); //turn SLEEPING OFF
+        pet.classList.toggle("rolling"); //turn rolling ON
+        overlay.classList.toggle("hideContent");
+      }, 4000);
+
+      console.log(`[passes out]`);
+      console.log(`SLEEPINESS: ${dino.sleepiness}`);
+    }
+    //----------------------
+  } else {
+    dinoSays.innerHTML = `It's too late to aplogize...`;
   }
 }
 
