@@ -274,12 +274,15 @@ function feedPet() {
 
       setTimeout(() => {
         pet.classList.toggle("eggeating"); //turn EATING OFF after 4 secs
-        if (dino.hunger < 5) {
-          pet.classList.toggle("testegg"); //after its done eating, if its hunger levels are below 5 it will go back to rolling (testegg)
-        } else {
+        if (dino.hunger >= 5 || dino.boredom >= 5 || dino.sleepiness >= 5) {
           pet.classList.toggle("chilling"); //if after eating its hunger levels are still 5 or higher, it will remain chilling
+        } else {
+          pet.classList.toggle("testegg"); //after its done eating, if its hunger levels are below 5 it will go back to rolling (testegg)
         }
       }, 4000);
+
+      console.log(`CRONCH CRONCH YUM`);
+      console.log(`HUNGER: ${dino.hunger}`);
     } else if (dino.hunger < 5 && dino.hunger >= 2) {
       dino.hunger -= 2;
 
@@ -336,10 +339,10 @@ function playWithPet() {
 
       setTimeout(() => {
         pet.classList.toggle("eggplaying"); //turn PLAYING OFF
-        if (dino.boredom < 5) {
-          pet.classList.toggle("testegg");
-        } else {
+        if (dino.boredom >= 5 || dino.hunger >= 5 || dino.sleepiness >= 5) {
           pet.classList.toggle("chilling");
+        } else {
+          pet.classList.toggle("testegg");
         }
       }, 4000);
 
@@ -402,13 +405,31 @@ function lightSwitch() {
 
       setTimeout(() => {
         pet.classList.toggle("eggsleeping"); //turn SLEEPING OFF
-        pet.classList.toggle("testegg"); //turn testegg ON
         overlay.classList.toggle("hideContent");
+        if (dino.sleepiness >= 5 || dino.boredom >= 5 || dino.hunger >= 5) {
+          pet.classList.toggle("chilling"); //turn testegg ON
+        }
       }, 4000);
 
       console.log(`[passes out]`);
       console.log(`SLEEPINESS: ${dino.sleepiness}`);
       //------------------
+    } else if (dino.sleepiness < 5 && dino.sleepiness >= 2) {
+      dino.sleepiness -= 2;
+
+      state.sleepiness = dino.sleepiness;
+      sleepinessStat.innerHTML = state.sleepiness;
+
+      pet.classList.toggle("testegg"); //turn off
+      pet.classList.toggle("eggsleeping"); //ON
+
+      setTimeout(() => {
+        pet.classList.toggle("eggsleeping"); //OFF
+        pet.classList.toggle("testegg"); //ON
+      }, 4000);
+
+      console.log(`[passes out]`);
+      console.log(`SLEEPINESS ${dino.sleepiness}`);
     } else if (dino.sleepiness === 1) {
       dino.sleepiness -= 1;
 
