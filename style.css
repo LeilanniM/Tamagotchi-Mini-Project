@@ -86,6 +86,11 @@ li {
   color: white;
 }
 
+#stats p {
+  color: whitesmoke;
+  font-weight: 300;
+}
+
 #pet {
   /* border: solid #cdb3b3 2px; */
 
@@ -277,7 +282,7 @@ button:hover {
   background-image: URL("images/rolling.gif");
   width: 129px;
   height: 136px;
-  border: solid 2px black;
+  /* border: solid 2px black; */
   position: absolute;
   background-size: contain;
   background-repeat: no-repeat;

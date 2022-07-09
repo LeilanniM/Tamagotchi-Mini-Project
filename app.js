@@ -76,14 +76,19 @@ class Pet {
     }, 4000);
 
     //================= ⏰ starting all intervals (that live inside my state object)======================
-    state.ageCount = setInterval(this.ageUp, 40000); //starts aging after 4 seconds of being hatched
+    state.ageCount = setInterval(this.ageUp, 20000); //starts aging after 4 seconds of being hatched
     state.hungerCount = setInterval(this.getsHungry, 10000); //hunger starts increasing
-    state.boredomCount = setInterval(this.getsBored, 20000); //boredom starts increasing
-    state.sleepinessCount = setInterval(this.getsSleepy, 35000); //sleepiness starts increasing
+    state.boredomCount = setInterval(this.getsBored, 12000); //boredom starts increasing
+    state.sleepinessCount = setInterval(this.getsSleepy, 15000); //sleepiness starts increasing
   }; //-------------hatch() FUNCTION ENDS
   //============================
 
   evolve = () => {
+    clearInterval(state.ageCount); //stop ALL the counting (Intervals)
+    clearInterval(state.hungerCount);
+    clearInterval(state.boredomCount);
+    clearInterval(state.sleepinessCount);
+
     dinoSays.innerHTML = "";
     disableButtons();
     dinoSays.innerHTML = `I'm evolving`;
@@ -96,17 +101,12 @@ class Pet {
       pet.classList.toggle("eggevolution");
       dinoSays.innerHTML = `I'm a grown Egg now, it's time for me to see the world`;
 
-      document.getElementById("stats").style.height = "154px";
+      document.getElementById("stats").style.height = "169px";
 
-      hungerStat.innerHTML = `Too old to be fed by you`;
-      boredomStat.innerHTML = `Lets grab a beer some time`;
-      sleepinessStat.innerHTML = `Sleeping? In this economy?`;
+      hungerStat.innerHTML = "<p>Too old to be fed by you</p>";
+      boredomStat.innerHTML = "<p>Lets grab a beer some time</p>";
+      sleepinessStat.innerHTML = "<p>Sleeping? In this economy?</p>";
     }, 4000);
-
-    clearInterval(state.ageCount); //stop ALL the counting (Intervals)
-    clearInterval(state.hungerCount);
-    clearInterval(state.boredomCount);
-    clearInterval(state.sleepinessCount);
   };
 
   //===========================
@@ -148,7 +148,7 @@ class Pet {
       clearInterval(state.sleepinessCount);
 
       startButton.innerHTML = `TRY AGAIN`;
-    } else if (this.hunger >= 5) {
+    } else if (this.hunger >= 3) {
       dinoSays.innerHTML = "FEED ME, FEEED MEEEE!!!!";
       console.log(`FEED ME, FEED MEEEEE!!!`);
     }
@@ -179,7 +179,7 @@ class Pet {
       clearInterval(state.sleepinessCount);
 
       startButton.innerHTML = `TRY AGAIN`;
-    } else if (this.boredom >= 5) {
+    } else if (this.boredom >= 3) {
       dinoSays.innerHTML = "PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!";
       console.log(`PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!`);
     }
@@ -211,7 +211,7 @@ class Pet {
       clearInterval(state.sleepinessCount);
 
       startButton.innerHTML = `TRY AGAIN`;
-    } else if (this.sleepiness >= 5) {
+    } else if (this.sleepiness >= 3) {
       dinoSays.innerHTML = "YAAAAAAAAWWWWWWNNNN!!! 🥱";
       console.log(`YAAAAAAAAWWWWWWNNNN 🥱`);
     }
