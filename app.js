@@ -4,19 +4,45 @@
 // let boredomCount;
 // let sleepinessCount;
 
-//--------
+//--------STATS
 const hungerStat = document.querySelector("#hungerStat");
 const boredomStat = document.querySelector("#boredomStat");
 const sleepinessStat = document.querySelector("#sleepinessStat");
-//---------
+//---------DINO SAYS
 
 const itHatched = document.querySelector("#itHatched");
 const isDead = document.querySelector("#isDead");
 const dinoSays = document.querySelector("#dinoSays");
-//----------------
 
+//------------------PET DIV
 const pet = document.querySelector("#pet"); //grabbing the acutal PET(div)
+//----------------OVERLAY
+
 const overlay = document.querySelector("#overlay"); //grabbing overlay Div to use it in lightSwitch() function
+
+//------------------BUTTONS--------------------------------------------------------------
+const lightSwitchButton = document.querySelector("#lightSwitch");
+lightSwitchButton.addEventListener("click", lightSwitch); //calling the function when clicked
+//-----------------
+const feedButton = document.querySelector("#feed");
+feedButton.addEventListener("click", feedPet); //calling the function when clicked
+//----------------
+const playWithPetButton = document.querySelector("#playWithPet");
+playWithPetButton.addEventListener("click", playWithPet); //calling the function when clicked
+
+//---------FUNCTION FOR DISABLING BUTTONS WHILE EGG EATS, SLEEPS AND PLAYS:
+
+const disableButtons = () => {
+  lightSwitchButton.setAttribute("disabled", true);
+  feedButton.setAttribute("disabled", true);
+  playWithPetButton.setAttribute("disabled", true);
+};
+
+const enableButtons = () => {
+  lightSwitchButton.removeAttribute("disabled");
+  feedButton.removeAttribute("disabled");
+  playWithPetButton.removeAttribute("disabled");
+};
 
 //=====================================CLASS==============================
 
@@ -263,6 +289,7 @@ startButton.addEventListener("click", startGame); //so that everytime it is clic
 
 function feedPet() {
   if (dino.isDead === false) {
+    disableButtons();
     if (dino.hunger < 10 && dino.hunger >= 5) {
       dino.hunger -= 2;
 
@@ -270,13 +297,15 @@ function feedPet() {
       hungerStat.innerHTML = state.hunger;
 
       pet.classList.remove("chilling"); //removing chilling temporary while it eats
-      pet.classList.add("eggeating");
+      pet.classList.add("eggeating"); //starts eating (ON)
 
       setTimeout(() => {
         pet.classList.toggle("eggeating"); //turn EATING OFF after 4 secs
         if (dino.hunger >= 5 || dino.boredom >= 5 || dino.sleepiness >= 5) {
+          enableButtons();
           pet.classList.toggle("chilling"); //if after eating its hunger levels are still 5 or higher, it will remain chilling
         } else {
+          enableButtons();
           pet.classList.toggle("testegg"); //after its done eating, if its hunger levels are below 5 it will go back to rolling (testegg)
         }
       }, 4000);
@@ -293,6 +322,7 @@ function feedPet() {
       pet.classList.toggle("eggeating"); //TURN EATING ON
 
       setTimeout(() => {
+        enableButtons();
         pet.classList.toggle("eggeating"); //turn EATING OFF
         pet.classList.toggle("testegg"); //turn testegg BACK ON
       }, 4000);
@@ -320,9 +350,6 @@ function feedPet() {
     dinoSays.innerHTML = `It's too late to apologize...`;
   }
 }
-
-const feedButton = document.querySelector("#feed");
-feedButton.addEventListener("click", feedPet); //calling the function when clicked
 
 //====================PLAY WITH PET BUTTON=================
 
@@ -385,9 +412,6 @@ function playWithPet() {
     dinoSays.innerHTML = `It's too late to apologize...`;
   }
 }
-
-const playWithPetButton = document.querySelector("#playWithPet");
-playWithPetButton.addEventListener("click", playWithPet); //calling the function when clicked
 
 //======================LIGHT SWITCH BUTTON=====================
 
@@ -454,9 +478,6 @@ function lightSwitch() {
     dinoSays.innerHTML = `It's too late to aplogize...`;
   }
 }
-
-const lightSwitchButton = document.querySelector("#lightSwitch");
-lightSwitchButton.addEventListener("click", lightSwitch); //calling the function when clicked
 
 //===========================RESTART BUTTON=================================
 
