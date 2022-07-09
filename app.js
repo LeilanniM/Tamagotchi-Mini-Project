@@ -114,6 +114,8 @@ class Pet {
   ageUp = () => {
     this.age += 1;
 
+    dinoSays.innerHTML = "";
+
     dinoSays.innerHTML = `🎂  I just turned ${this.age} !! `;
     console.log(`${this.name} just turned ${this.age}`);
 
