@@ -33,8 +33,8 @@ class Pet {
   //===================
 
   //DEBUGGING:
-  //when PET dies it is left with the class .chilling still on it
-  //When we revivie it, it has both classes on .chilling and .egg
+  //when PET dies it is left with the class .testegg still on it
+  //When we revivie it, it has both classes on .testegg and .egg
 
   hatch = () => {
     state.age = this.age; //state.age goes from NULL to 0
@@ -46,7 +46,7 @@ class Pet {
     setTimeout(() => {
       //4 second later
       pet.classList.toggle("egg"); //turn hatching egg GIF off
-      pet.classList.toggle("chilling"); //turn chilling egg GIF on
+      pet.classList.toggle("testegg"); //turn testegg egg GIF on
     }, 4000);
 
     setTimeout(() => (itHatched.innerHTML = ""), 5000); //so "your egg hatched" message goes away when PET turns 1
@@ -83,7 +83,7 @@ class Pet {
 
       this.isDead = true;
 
-      pet.classList.toggle("chilling"); //clear images when dead
+      pet.classList.toggle("testegg"); //clear images when dead
       pet.classList.toggle("eggdied"); //switches to egg dying GIF
 
       clearInterval(state.ageCount);
@@ -97,6 +97,10 @@ class Pet {
     } else if (this.hunger >= 5) {
       dinoSays.innerHTML = "FEED ME, FEEED MEEEE!!!!";
       console.log(`feed me, feed me, FEED MEEEEE!!!`);
+    }
+    if (this.hunger === 5 || this.boredom === 5 || this.sleepiness === 5) {
+      pet.classList.remove("testegg"); //when the level of hunger is 5 or more, TURN OFF rolling
+      pet.classList.add("chilling"); //and TURN ON chilling
     }
   }; //-------------- getsHungry() FUNCTION ENDS
 
@@ -116,7 +120,7 @@ class Pet {
 
       this.isDead = true;
 
-      pet.classList.toggle("chilling"); //clear images when dead
+      pet.classList.toggle("testegg"); //clear images when dead
       pet.classList.toggle("eggdied"); //switches to egg dying GIF
 
       clearInterval(state.ageCount);
@@ -128,8 +132,15 @@ class Pet {
 
       console.log(state);
     } else if (this.boredom >= 5) {
+      pet.classList.remove("testegg"); //when the level of boredom is 5 or more, TURN OFF rolling
+      pet.classList.add("chilling"); //and TURN ON chilling
+
       dinoSays.innerHTML = "PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!";
       console.log(`play with me, PLAY WITH ME, PLAAAY WIIITH MEEE AAAAH!!!`);
+    }
+    if (this.hunger === 5 || this.boredom === 5 || this.sleepiness === 5) {
+      pet.classList.remove("testegg"); //when the level of hunger is 5 or more, TURN OFF rolling
+      pet.classList.add("chilling"); //and TURN ON chilling
     }
   }; //------------getsBored() FUNCTION ENDS
   //============================
@@ -148,7 +159,7 @@ class Pet {
 
       this.isDead = true;
 
-      pet.classList.toggle("chilling"); //clear images when dead
+      pet.classList.toggle("testegg"); //clear images when dead
       pet.classList.toggle("eggdied"); //switches to egg dying GIF
 
       clearInterval(state.ageCount);
@@ -160,8 +171,15 @@ class Pet {
 
       console.log(state);
     } else if (this.sleepiness >= 5) {
+      pet.classList.remove("testegg"); //when the level of sleepiness is 5 or more, TURN OFF rolling
+      pet.classList.add("chilling"); //and TURN ON chilling
+
       dinoSays.innerHTML = "YAAAAAAAAWWWWWWNNNN!!! 🥱";
       console.log(`YAAAAWN! YAAAAAAAAWWWWWWNNNN 🥱`);
+    }
+    if (this.hunger === 5 || this.boredom === 5 || this.sleepiness === 5) {
+      pet.classList.remove("testegg"); //when the level of hunger is 5 or more, TURN OFF rolling
+      pet.classList.add("chilling"); //and TURN ON chilling
     }
   }; //---------getsSleepy() FUNCTIONS ENDS
 } //=====================END OF CLASS=================================
@@ -245,18 +263,35 @@ startButton.addEventListener("click", startGame); //so that everytime it is clic
 
 function feedPet() {
   if (dino.isDead === false) {
-    if (dino.hunger < 10 && dino.hunger >= 2) {
+    if (dino.hunger < 10 && dino.hunger >= 5) {
       dino.hunger -= 2;
 
       state.hunger = dino.hunger;
       hungerStat.innerHTML = state.hunger;
 
-      pet.classList.toggle("chilling"); //turn CHILLING OFF
+      pet.classList.remove("chilling"); //removing chilling temporary while it eats
+      pet.classList.add("eggeating");
+
+      setTimeout(() => {
+        pet.classList.toggle("eggeating"); //turn EATING OFF after 4 secs
+        if (dino.hunger < 5) {
+          pet.classList.toggle("testegg"); //after its done eating, if its hunger levels are below 5 it will go back to rolling (testegg)
+        } else {
+          pet.classList.toggle("chilling"); //if after eating its hunger levels are still 5 or higher, it will remain chilling
+        }
+      }, 4000);
+    } else if (dino.hunger < 5 && dino.hunger >= 2) {
+      dino.hunger -= 2;
+
+      state.hunger = dino.hunger;
+      hungerStat.innerHTML = state.hunger;
+
+      pet.classList.toggle("testegg"); //turn testegg OFF
       pet.classList.toggle("eggeating"); //TURN EATING ON
 
       setTimeout(() => {
         pet.classList.toggle("eggeating"); //turn EATING OFF
-        pet.classList.toggle("chilling"); //turn CHILLING BACK ON
+        pet.classList.toggle("testegg"); //turn testegg BACK ON
       }, 4000);
 
       console.log(`CRONCH CRONCH YUM!`);
@@ -267,12 +302,12 @@ function feedPet() {
       state.hunger = dino.hunger;
       hungerStat.innerHTML = state.hunger;
 
-      pet.classList.toggle("chilling"); //clear images when being fed
+      pet.classList.toggle("testegg"); //clear images when being fed
       pet.classList.toggle("eggeating"); //shows him eating
 
       setTimeout(() => {
         pet.classList.toggle("eggeating"); //turn EATING OFF
-        pet.classList.toggle("chilling"); //turn CHILLING BACK ON
+        pet.classList.toggle("testegg"); //turn testegg BACK ON
       }, 4000);
 
       console.log(`CRONCH CRONCH YUM!`);
@@ -296,12 +331,12 @@ function playWithPet() {
       state.boredom = dino.boredom;
       boredomStat.innerHTML = state.boredom;
 
-      pet.classList.toggle("chilling"); //turn CHILLING OFF
+      pet.classList.toggle("testegg"); //turn testegg OFF
       pet.classList.toggle("eggplaying"); //turn PLAYING ON
 
       setTimeout(() => {
         pet.classList.toggle("eggplaying"); //turn PLAYING OFF
-        pet.classList.toggle("chilling"); //turn CHILLING ON
+        pet.classList.toggle("testegg"); //turn testegg ON
       }, 4000);
 
       console.log(`[Giggles]`);
@@ -312,12 +347,12 @@ function playWithPet() {
       state.boredom = dino.boredom;
       boredomStat.innerHTML = state.boredom;
 
-      pet.classList.toggle("chilling"); //turn CHILLING OFF
+      pet.classList.toggle("testegg"); //turn testegg OFF
       pet.classList.toggle("eggplaying"); //turn PLAYING ON
 
       setTimeout(() => {
         pet.classList.toggle("eggplaying"); //turn PLAYING OFF
-        pet.classList.toggle("chilling"); //turn CHILLING ON
+        pet.classList.toggle("testegg"); //turn testegg ON
       }, 4000);
 
       console.log(`[Giggles]`);
@@ -341,13 +376,13 @@ function lightSwitch() {
       state.sleepiness = dino.sleepiness;
       sleepinessStat.innerHTML = state.sleepiness;
 
-      pet.classList.toggle("chilling"); //turn CHILLING OFF
+      pet.classList.toggle("testegg"); //turn testegg OFF
       pet.classList.toggle("eggsleeping"); //turn SLEEPING ON
       overlay.classList.toggle("hideContent");
 
       setTimeout(() => {
         pet.classList.toggle("eggsleeping"); //turn SLEEPING OFF
-        pet.classList.toggle("chilling"); //turn CHILLING ON
+        pet.classList.toggle("testegg"); //turn testegg ON
         overlay.classList.toggle("hideContent");
       }, 4000);
 
@@ -360,13 +395,13 @@ function lightSwitch() {
       state.sleepiness = dino.sleepiness;
       sleepinessStat.innerHTML = state.sleepiness;
 
-      pet.classList.toggle("chilling"); //turn CHILLING OFF
+      pet.classList.toggle("testegg"); //turn testegg OFF
       pet.classList.toggle("eggsleeping"); //turn SLEEPING ON
       overlay.classList.toggle("hideContent");
 
       setTimeout(() => {
         pet.classList.toggle("eggsleeping"); //turn SLEEPING OFF
-        pet.classList.toggle("chilling"); //turn CHILLING ON
+        pet.classList.toggle("testegg"); //turn testegg ON
         overlay.classList.toggle("hideContent");
       }, 4000);
 
