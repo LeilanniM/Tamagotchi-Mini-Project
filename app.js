@@ -336,11 +336,31 @@ function playWithPet() {
 
       setTimeout(() => {
         pet.classList.toggle("eggplaying"); //turn PLAYING OFF
-        pet.classList.toggle("testegg"); //turn testegg ON
+        if (dino.boredom < 5) {
+          pet.classList.toggle("testegg");
+        } else {
+          pet.classList.toggle("chilling");
+        }
       }, 4000);
 
       console.log(`[Giggles]`);
       console.log(`BOREDOM: ${dino.boredom}`);
+    } else if (dino.boredom < 5 && dino.boredom >= 2) {
+      dino.boredom -= 2;
+
+      state.boredom = dino.boredom;
+      boredomStat.innerHTML = state.boredom;
+
+      pet.classList.toggle("testegg");
+      pet.classList.toggle("eggplaying");
+
+      setTimeout(() => {
+        pet.classList.toggle("eggplaying");
+        pet.classList.toggle("testegg");
+      }, 4000);
+
+      console.log(`[giggles]`);
+      console.log(`BOREDOM ${dino.boredom}`);
     } else if (dino.boredom === 1) {
       dino.hunger -= 1;
 
