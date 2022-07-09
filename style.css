@@ -236,7 +236,33 @@ button:hover {
   cursor: pointer;
 }
 
-/* #testegg {
-  width: 52px;
-  height: 55px;
-} */
+.testegg {
+  background-image: URL("images/rolling.gif");
+  width: 129px;
+  height: 136px;
+  border: solid 2px black;
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  top: 370px;
+  left: 265px;
+  border-radius: 74px;
+  /*BELOW THIS: Attaching animation to this image */
+
+  animation-duration: 3s; /* how long itll take the egg to cross the screen */
+  animation-name: slide; /* itll refer to our keyframe names SLIDE */
+  animation-iteration-count: infinite; /*this keeps our blocl/egg-mage looping (repeating the asigned movement*/
+  animation-direction: alternate; /* this makes it so it does what we told it too PLUS the same on its way back */
+}
+
+@keyframes slide {
+  0% {
+    left: 265px;
+    transform: rotate(0deg);
+  }
+
+  100% {
+    left: 813px;
+    transform: rotate(500deg);
+  }
+} /*end of animation*/
